@@ -7,7 +7,8 @@ const bodyParser = require('body-parser');
 // const request = require('request');
 // const _ = require('lodash');
 
-dotenv.load();
+const DiscordBot = require('./api/components/discord-bot');
+
 const rootUrl = (process.env.ROOT_URL || 'http://localhost');
 const port = Number(process.env.PORT || 3000);
 
