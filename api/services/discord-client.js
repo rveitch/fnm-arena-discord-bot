@@ -1,4 +1,3 @@
-require('dotenv').config({ debug: process.env.DEBUG });
 const Discord = require('discord.js');
 
 /* ***************************** DISCORD CLIENT SETUP ******************************** */

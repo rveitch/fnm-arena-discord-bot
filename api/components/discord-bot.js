@@ -1,4 +1,3 @@
-require('dotenv').config();
 const Discord = require('../services/discord-client');
 const Utils = require('./utils');
 
@@ -7,7 +6,7 @@ module.exports = DiscordBot;
 
 /* ******************************** EVENTS **************************** */
 
-Discord.on('message', (msg) => {
+Discord.on('message', async (msg) => {
   if (!Utils.isBotCommand(msg) || !hasAttachments(msg)) {
     return;
   }
@@ -21,6 +20,7 @@ Discord.on('message', (msg) => {
 
   if (imageAttachments.length) {
     console.log('FNM SUBMISSION:', msg.author.username, imageAttachments);
+    await msg.reply('Submission Accepted!');
   }
 });
 

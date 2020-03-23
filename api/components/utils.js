@@ -1,4 +1,3 @@
-require('dotenv').config();
 const Mime = require('mime');
 
 const PREFIX = process.env.DISCORD_BOT_PREFIX || '!';

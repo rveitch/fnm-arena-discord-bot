@@ -1,5 +1,5 @@
 /* eslint-disable new-cap, no-console */
-const dotenv = require('dotenv');
+require('dotenv').config({ debug: process.env.DEBUG });
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
