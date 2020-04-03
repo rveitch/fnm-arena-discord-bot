@@ -21,6 +21,10 @@ module.exports = {
     const mimeTypePrefix = (mimeTypeParts && mimeTypeParts.length) ? mimeTypeParts[0] : mimeType;
     return ['image'].includes(mimeTypePrefix);
   },
+
+  TimeNow() {
+    return Math.floor(Date.now() / 1000);
+  },
 };
 
 function stripQueryParameters(uri) {

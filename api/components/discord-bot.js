@@ -1,5 +1,6 @@
 const Discord = require('../services/discord-client');
 const Utils = require('./utils');
+const Cache = require('./cache');
 
 const DiscordBot = {};
 module.exports = DiscordBot;
@@ -7,7 +8,7 @@ module.exports = DiscordBot;
 /* ******************************** EVENTS **************************** */
 
 Discord.on('message', async (msg) => {
-  if (!Utils.isBotCommand(msg) || !hasAttachments(msg)) {
+  if (!isTargetChannel(msg) || !hasAttachments(msg)) { // !Utils.isBotCommand(msg)
     return;
   }
 
@@ -19,8 +20,15 @@ Discord.on('message', async (msg) => {
   }, []);
 
   if (imageAttachments.length) {
-    console.log('FNM SUBMISSION:', msg.author.username, imageAttachments);
-    await msg.reply('Submission Accepted!');
+    try {
+      console.log('FNM SUBMISSION:', msg.author.username, imageAttachments);
+      await Cache.storeSubmission(`${Utils.TimeNow()}_${msg.author.id}_${msg.author.username}`, imageAttachments[0]);
+      if (Utils.isBotCommand(msg)) {
+        await msg.reply('Submission Accepted!');
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 });
 
@@ -28,4 +36,9 @@ Discord.on('message', async (msg) => {
 
 function hasAttachments(msg) {
   return msg.attachments.size >= 1;
+}
+
+function isTargetChannel(msg) {
+  const { channel: { name: channelName } = {} } = msg || {};
+  return channelName === 'mtg-arena-event-submissions';
 }
